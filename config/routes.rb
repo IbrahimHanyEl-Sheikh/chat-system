@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :applications, param: :token, only: %i[index show create update] do
-        resources :chats, param: :number , only: %i[index show create]
+        resources :chats, param: :number , only: %i[index show create] do
+          resources :messages, param: :message_number, only: %i[index show create]
+        end
       end
     end
   end

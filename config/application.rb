@@ -5,6 +5,7 @@ require "rails/all"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
+Dotenv::Rails.load
 
 module ChatSystem
   class Application < Rails::Application
@@ -26,7 +27,11 @@ module ChatSystem
 
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.
+    config.active_job.queue_adapter = :sidekiq
+
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+    config.chats_batch_size = 3
+    config.messages_batch_size = 3
   end
 end
