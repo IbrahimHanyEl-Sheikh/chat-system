@@ -1,0 +1,42 @@
+version: "3.8"
+volumes:
+  dbvolume:
+
+services:
+    redis:
+        image: redis:alpine
+        container_name: redis
+        expose:
+            - 6379
+        volumes:
+            - ./tmp/redis_data:/var/lib/redis/data
+    app: 
+        build: .
+        container_name: app
+        command: bundle exec rails s -p 3000 -b '0.0.0.0'
+        volumes: 
+            - ".:/app"
+        ports: 
+            - "3000:3000"
+        depends_on:
+            - mysql_db
+        environment:
+            DB_USER: root
+            DB_NAME: app
+            DB_PASSWORD: password
+            DB_HOST: db
+            DB_PORT: 3306
+
+    mysql_db: 
+        image: mysql:latest
+        container_name: mysql_db
+        restart: always
+        volumes:
+            - dbvolume:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_DATABASE: app
+            MYSQL_USER: user
+            MYSQL_PASSWORD: password
+        expose:
+          - 3306
