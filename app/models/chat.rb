@@ -3,8 +3,6 @@ class Chat < ApplicationRecord
   has_many :messages, dependent: :destroy
 
   validates :number, presence: true, numericality: { only_integer: true }
-  validates :messages_count, numericality: { only_integer: true }
-
-  validates_associated :application
+  validates :msgs_count, numericality: { only_integer: true }
 
 end
