@@ -26,8 +26,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_02_101010) do
     t.bigint "application_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["application_id", "number"], name: "index_chats_on_application_id_and_number", unique: true
+    t.string "application_token", null: false
     t.index ["application_id"], name: "index_chats_on_application_id"
+    t.index ["application_token", "number"], name: "index_chats_on_application_token_and_number", unique: true
   end
 
   create_table "messages", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

@@ -7,7 +7,8 @@ class CreateChats < ActiveRecord::Migration[7.1]
 
       t.timestamps
     end
-    add_index :chats, [:application_id, :number], unique: true
+    add_column :chats, :application_token, :string, null: false
+    add_index :chats, [:application_token, :number], unique: true
     change_column :chats, :msgs_count, :integer, default: 0
   end
 end
