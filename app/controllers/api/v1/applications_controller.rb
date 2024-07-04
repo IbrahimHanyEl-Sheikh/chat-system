@@ -30,18 +30,19 @@ class Api::V1::ApplicationsController < ApplicationController
   # end
   # PUT /api/v1/applications/:token
   def update
-    if @application.update(application_params)
-      render json: @application
-    else
-      render json: @application.errors, status: :unprocessable_entity
-    end
+    if @application
+      UpdateApplicationJob.perform_async(@application.token, params[:name])
+      render json: {status: "Application name for Application: #{@application.token} updated."}, status: :ok
+     else
+       render json: { error: "Application not found" }, status: :not_found
+     end
   end
 
   private
 
   # Find application by token
   def set_application
-    @application = Application.find_by(token: params[:token]).as_json(:except => [:id])
+    @application = Application.find_by(token: params[:token])
     unless @application
       render json: { error: "Application not found" }, status: :not_found
     end

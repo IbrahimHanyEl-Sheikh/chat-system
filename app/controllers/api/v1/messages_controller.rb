@@ -1,6 +1,6 @@
 class Api::V1::MessagesController < ApplicationController
-  before_action :set_application, :set_chat, only: [:create, :index, :show, :search]
-  before_action :set_message, only: [:show]
+  before_action :set_application, :set_chat, only: [:create, :index, :show, :search, :update, :destroy]
+  before_action :set_message, only: [:show, :update, :destroy]
 
   # GET /messages
   def index
@@ -48,9 +48,28 @@ class Api::V1::MessagesController < ApplicationController
     else
       render json: message.errors, status: :bad_request
     end
-
 	end
 
+  # PATCH/PUT /messages/1
+  def update
+    if @message
+     UpdateMessageJob.perform_async(@application.token, @chat.number, params[:number], params[:body])
+     render json: {status: "message body for message number: #{@message.number} updated."}, status: :ok
+    else
+      render json: { error: "message not found" }, status: :not_found
+    end
+  end
+
+  # DELETE /messages/1
+  def destroy
+    @message.with_lock do
+      @message.destroy!
+    end
+    @chat.with_lock do
+      @chat.decrement!(:msgs_count)
+    end
+    render json: {"status": "message deleted successfully"}, status: :ok
+  end
 
   private
   # Use callbacks to share common setup or constraints between actions.

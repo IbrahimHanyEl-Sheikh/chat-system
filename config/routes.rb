@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :applications, param: :token, only: %i[index show create update] do
         resources :chats, param: :number , only: %i[index show create] do
-          resources :messages, param: :number, only: %i[index show create] do
+          resources :messages, param: :number, only: %i[index show create update destroy] do
             get 'search' , on: :collection
           end
         end

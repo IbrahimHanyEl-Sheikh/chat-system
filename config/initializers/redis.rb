@@ -21,5 +21,5 @@ def generate_message_number(chat_number, application_token)
   message_number = $redis.incr(redis_key)
 
   # Return the incremented message number
-  message_number
+  return message_number
 end
