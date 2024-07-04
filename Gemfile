@@ -48,3 +48,4 @@ gem 'dotenv-rails'
 gem 'elasticsearch-rails'
 gem 'elasticsearch-model'
 gem "searchkick", "~> 5.3"
+gem "sidekiq", "~> 7.2"
