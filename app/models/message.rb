@@ -3,5 +3,5 @@ class Message < ApplicationRecord
 
   validates :number, presence: true, numericality: { only_integer: true }
   validates :body, presence: true
-
+  searchkick
 end

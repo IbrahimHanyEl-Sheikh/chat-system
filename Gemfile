@@ -45,3 +45,6 @@ group :development do
   # gem "spring"
 end
 gem 'dotenv-rails'
+gem 'elasticsearch-rails'
+gem 'elasticsearch-model'
+gem "searchkick", "~> 5.3"
