@@ -16,13 +16,14 @@ class Api::V1::ChatsController < ApplicationController
   # POST /chats
   def create
 		chat_number = generate_chat_number(@application.token)
-		chat = @application.chats.new(number: chat_number,application_token: @application.token)
-
-		if chat.save
-			render json: chat, status: :created
-		else
-			render json: chat.errors, status: :bad_request
-		end
+		chat = @application.chats.new(number: chat_number, application_token: @application.token)
+    if chat.valid?
+      puts "chat is valid"
+      CreateChatsJob.perform_async(@application.token, chat_number)
+      render json: chat, :except=>[:id, :created_at, :updated_at, :application_id], status: :created
+    else
+      render json: chat.errors, status: :bad_request
+    end
 	end
 
   private

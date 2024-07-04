@@ -22,7 +22,12 @@ class Api::V1::ApplicationsController < ApplicationController
       render json: @application.errors, status: :unprocessable_entity
     end
   end
-
+  # def create
+  #   application_token = SecureRandom.uuid
+  #   CreateApplicationsJob.perform_async(application_token, params[:name])
+  #   @application =
+  #   render json: { token: application_token }, status: :created
+  # end
   # PUT /api/v1/applications/:token
   def update
     if @application.update(application_params)
