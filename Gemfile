@@ -49,3 +49,5 @@ gem 'elasticsearch-rails'
 gem 'elasticsearch-model'
 gem "searchkick", "~> 5.3"
 gem "sidekiq", "~> 7.2"
+# add workaround to build docker image
+gem 'net-pop', github: 'ruby/net-pop'
