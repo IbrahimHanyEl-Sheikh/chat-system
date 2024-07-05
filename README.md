@@ -11,7 +11,8 @@ It allows creating new applications where each application can have multiple cha
 * Services (job queues, cache servers, search engines, etc.)
 
 ### Demo
-[demo.zip](https://github.com/user-attachments/files/16111186/demo.zip)
+[Demo.zip](https://github.com/user-attachments/files/16113349/Demo.zip)
+
 
 ### Dependencies
 1. Docker
@@ -28,6 +29,8 @@ docker-compose up
 - **Ruby:** 3.3.3
 - **Docker:** v27.0.3
 - **Docker compose:** v1.25.0
+- **Elasticsearch:** v7.8.1
+- **Mysql:** latest 
 
 ### Endpoints
 #### `ApplicationsController`
@@ -60,4 +63,11 @@ docker-compose up
 4. Redlock
 5. Searchkick
 6. Sidekiq
-    
+### Note
+sometimes when trying to make search for the message show error that need to execute **Message.reindex** so needs to update the indexes in the elasticsearch to interact with it normally.
+so open terminal and execute these commands.
+```
+docker exec -it chat-system-backend bundle exec rails console
+Message:reindex
+exit
+```
