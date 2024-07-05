@@ -51,6 +51,7 @@ services:
       environment:
         - discovery.type=single-node
         - bootstrap.memory_lock=true
+        - 'ES_JAVA_OPTS=-Xms2g -Xmx2g'
       ulimits:
         memlock:
           soft: -1
@@ -58,9 +59,10 @@ services:
       volumes:
         - elasticsearch:/usr/share/elasticsearch/data
       ports:
-        - 9200:9200
-      expose:
-        - 9200
+        - 127.0.0.1:9200:9200
+        - 127.0.0.1:9300:9300
+      # expose:
+      #   - 9200
       healthcheck:
           test: ["CMD", "curl", "-f", "http://localhost:9200"]
           timeout: 5s
