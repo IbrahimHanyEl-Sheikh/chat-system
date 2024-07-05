@@ -10,7 +10,7 @@ class Api::V1::ChatsController < ApplicationController
 
   # GET /chats/1
   def show
-    render json: @chat
+    render json: @chat, :except=> [:id, :application_id]
   end
 
   # POST /chats
