@@ -8,7 +8,7 @@ rescue Exception => e
 end
 
 begin
-  $redis_lock = Redlock::Client.new([ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" }])
+  $redis_lock = Redlock::Client.new([ENV.fetch("REDIS_LOCK_URL") { "redis://localhost:6379/1" }])
 rescue Exception => e
   puts e
 end

@@ -31,7 +31,5 @@ module ChatSystem
 
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
-    config.chats_batch_size = 3
-    config.messages_batch_size = 3
   end
 end

@@ -45,8 +45,10 @@ group :development do
   # gem "spring"
 end
 gem 'dotenv-rails'
-gem 'elasticsearch-rails'
-gem 'elasticsearch-model'
+gem "elasticsearch-model", "~> 7.2"
+
+gem "elasticsearch-rails", "~> 7.2"
+
 gem "searchkick", "~> 5.3"
 gem "sidekiq", "~> 7.2"
 # add workaround to build docker image
