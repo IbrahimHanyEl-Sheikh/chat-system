@@ -32,8 +32,6 @@ services:
     volumes:
       - db:/var/run/mysqld
     restart: unless-stopped
-    ports:
-      - "33061:3306"
     expose:
     - '3306'
     environment:
@@ -68,6 +66,7 @@ services:
   app:
     build: .
     container_name: chat-system-backend
+    command: "./bin/rails server --binding 0.0.0.0"
     networks:
         - my-network
     volumes:
@@ -76,6 +75,8 @@ services:
     restart: always
     ports:
       - "3000:3000"
+    expose:
+      - 3000
     environment:
       environment:
       DB_USERNAME: root
@@ -96,6 +97,8 @@ services:
     build: ./
     command: bundle exec sidekiq
     restart: always
+    networks:
+      - my-network
     volumes:
       - ./:/workspace
     environment:

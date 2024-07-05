@@ -1,5 +1,17 @@
 require 'redis'
-$redis = Redis.new(url: ENV["REDIS_URL"])
+redis_config = { url: ENV.fetch("REDIS_URL") { "redis://localhost:6379" } }
+
+begin
+  $redis = Redis.new(redis_config)
+rescue Exception => e
+  puts e
+end
+
+begin
+  $redis_lock = Redlock::Client.new([ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" }])
+rescue Exception => e
+  puts e
+end
 
 # method to generate chat_number using redis
 def generate_chat_number(application_token)
