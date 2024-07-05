@@ -8,6 +8,7 @@ It allows creating new applications where each application can have multiple cha
 * How to run 
 * Versions used
 * Endpoints
+* collection
 * Services (job queues, cache servers, search engines, etc.)
 
 ### Demo
@@ -55,6 +56,8 @@ docker-compose up
 - **DELETE** `/messages/:number` - Deletes a message from a chat.
 - **GET** `/messages/search?body=query_msg` - Searches messages by a query parameter within a chat.
 
+### Collection
+https://www.postman.com/ibrahim-hany-elsheikh/workspace/chat-system/overview
 ### Services
 
 1. Elasticsearch
